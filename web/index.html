@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Species Predictor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="title">🌸 Iris Species Predictor</h2>
+        <form id="irisForm" class="form">
+            <input type="text" id="sl" placeholder="Sepal Length" required>
+            <input type="text" id="sw" placeholder="Sepal Width" required>
+            <input type="text" id="pl" placeholder="Petal Length" required>
+            <input type="text" id="pw" placeholder="Petal Width" required>
+            <button type="submit" class="btn">Predict</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('irisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const features = [
+                parseFloat(document.getElementById('sl').value),
+                parseFloat(document.getElementById('sw').value),
+                parseFloat(document.getElementById('pl').value),
+                parseFloat(document.getElementById('pw').value)
+            ];
+
+            // Show loading animation while waiting
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="loader"></div>';
+ 
+            fetch('https://17417ce27618.ngrok-free.app/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({features: features})
+            })
+            .then(res => res.json())
+            .then(data => {
+                resultDiv.innerHTML = `<span class="fade-in">🌿 Prediction: <b>${data.prediction}</b></span>`;
+            })
+            .catch(err => {
+                resultDiv.innerHTML = `<span class="error">⚠️ Error: ${err}</span>`;
+            });
+        });
+    </script>
+</body>
+</html>
