@@ -1,9 +1,12 @@
 # model_api.py
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import joblib
 import numpy as np
 
 app = Flask(__name__)
+CORS(app)
+
 model = joblib.load('iris_LogesticRegression_model.pkl')
 
 @app.route('/predict', methods=['POST'])
