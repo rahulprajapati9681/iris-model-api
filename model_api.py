@@ -1,4 +1,3 @@
-# model_api.py
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
@@ -25,4 +24,5 @@ def predict():
         
 if __name__ == '__main__':
 
-    app.run(port=5001, debug=True)  # Run on a different port
+    app.run(port=5001, debug=True)  # Run on a different 
+
